@@ -1,1 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>地震學 Chapter 4 — 地震與震源機制</title>
+<meta name="description" content="地震學第四章互動式教學網頁：地震導論、震源機制、沙灘球與實際案例分析">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="navbar" id="navbar">
+<div class="nav-brand">🌏 地震學 Ch.4</div>
+<button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+<ul class="nav-links" id="navLinks">
+<li><a href="#intro">4.1 導論</a></li>
+<li><a href="#focal">4.2 震源機制</a></li>
+<li><a href="#case">案例分析</a></li>
+<li><a href="#tool">互動工具</a></li>
+</ul>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="hero">
+<canvas id="seismicWaveCanvas"></canvas>
+<div class="hero-content">
+<h1>地震與震源機制</h1>
+<p class="hero-subtitle">Earthquakes and Focal Mechanisms — 互動式學習平台</p>
+<div class="hero-meta">
+<span>📖 Chapter 4</span>
+<span>🎓 地震學課程</span>
+<span>🔬 Shearer 教科書</span>
+</div>
+<div class="hero-nav">
+<a href="#intro" class="btn-primary">開始學習</a>
+<a href="#tool" class="btn-secondary">互動工具</a>
+</div>
+</div>
+</header>
+
+<!-- SECTION: 4.1 INTRO -->
+<section class="section" id="intro">
+<div class="section-header">
+<div class="section-number">Section 4.1</div>
+<h2 class="section-title">地震學導論</h2>
+<p class="section-desc">探討地震的成因、彈性回跳理論與地震週期</p>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">彈性回跳理論 Elastic Rebound Theory</h3>
+<div class="card" style="margin-bottom:1.5rem">
+<p>地震發生在地下的<strong>斷層</strong>上。1906年舊金山大地震後，H.F. Reid 提出了<strong>彈性回跳理論</strong>：遠離斷層的板塊持續相對運動，但斷層面的摩擦力將其「鎖死」。隨著應變能量累積，當應力超過極限時，斷層瞬間破裂並釋放能量，產生地震。</p>
+</div>
+<!-- Elastic Rebound Animation -->
+<div class="canvas-container">
+<canvas id="reboundCanvas" width="700" height="300"></canvas>
+<div class="canvas-label">▶ 點擊上方動畫觀看彈性回跳過程（鎖定 → 累積 → 破裂 → 回跳）</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">地震週期 The Seismic Cycle</h3>
+<div class="timeline" id="seismicCycleTimeline">
+<div class="timeline-item active" data-phase="0">
+<div class="timeline-label">Phase 1</div>
+<div class="timeline-title">震間期 Interseismic</div>
+<div class="timeline-desc">週期中最長的階段。遠離斷層的區域持續相對運動，但斷層本身處於「鎖死」狀態，偶爾伴隨少量無震潛變（aseismic creep）。</div>
+</div>
+<div class="timeline-item" data-phase="1">
+<div class="timeline-label">Phase 2</div>
+<div class="timeline-title">震前期 Preseismic</div>
+<div class="timeline-desc">斷層破裂前夕，可能出現微小的前震（foreshocks）或其他前兆現象，但這些訊號並非總是可靠的預測指標。</div>
+</div>
+<div class="timeline-item" data-phase="2">
+<div class="timeline-label">Phase 3</div>
+<div class="timeline-title">同震期 Coseismic</div>
+<div class="timeline-desc">地震發生的當下！斷層面發生快速錯動，在短短幾秒內產生數公尺的滑動量，一次「補齊」過去數百年累積的位移，釋放巨大能量。</div>
+</div>
+<div class="timeline-item" data-phase="3">
+<div class="timeline-label">Phase 4</div>
+<div class="timeline-title">震後期 Postseismic</div>
+<div class="timeline-desc">地震後出現餘震（aftershocks）與震後滑移（afterslip），持續數年，直到斷層重新穩定並回到震間期。</div>
+</div>
+</div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">研究地震的三大動機</h3>
+<div class="grid-3">
+<div class="card"><h3>🌍 大尺度地質過程</h3><p>地震反映岩石圈板塊運動，提供「板塊為何移動、如何移動」的寶貴資訊。</p></div>
+<div class="card"><h3>🔬 基礎物理學</h3><p>斷層何時破裂、如何破裂仍有許多未解之謎，研究地震有助於揭開斷層作用的物理機制。</p></div>
+<div class="card"><h3>🏗️ 社會防災</h3><p>了解地震可能發生的地點與時間，預測地表震動，對減輕災害至關重要。</p></div>
+</div>
+</div>
+</section>
+
+<!-- SECTION: 4.2 FOCAL MECHANISMS -->
+<section class="section" id="focal">
+<div class="section-header">
+<div class="section-number">Section 4.2</div>
+<h2 class="section-title">震源機制</h2>
+<p class="section-desc">Focal Mechanisms — 從斷層幾何到沙灘球</p>
+</div>
+
+<!-- 4.2.1 Fault Geometry -->
+<div class="subsection">
+<h3 class="subsection-title">4.2.1 斷層幾何 Fault Geometry</h3>
+<div class="grid-2">
+<div>
+<p style="color:var(--text-secondary);margin-bottom:1rem">斷層幾何由三個角度定義：</p>
+<p style="color:var(--text-secondary);margin-bottom:0.5rem">📐 <strong>走向角 φ<sub>f</sub> (Strike)</strong>：從正北順時針量到斷層面與地表交線的方向</p>
+<p style="color:var(--text-secondary);margin-bottom:0.5rem">📐 <strong>傾斜角 δ (Dip)</strong>：斷層面與地表的夾角（< 90°）</p>
+<p style="color:var(--text-secondary);margin-bottom:1rem">📐 <strong>滑動角 λ (Slip/Rake)</strong>：在斷層面內，從走向方向量到滑動方向的角度</p>
+<div class="key-concept"><h4>法向量與滑動向量</h4><p>法向量 n̂ 垂直於斷層面；滑動向量 d̂ 描述上盤相對下盤的滑動方向，且 n̂ ⊥ d̂。</p></div>
+</div>
+<div class="figure"><img src="images/fig_4.2-2_fault_geometry.png" alt="Fig 4.2-2 斷層幾何定義"><div class="figure-caption">Fig. 4.2-2：斷層幾何定義圖。展示走向角 φf、傾角 δ、滑動角 λ 與法向量 n̂、滑動向量 d̂。</div></div>
+</div>
+
+<!-- Fault Types -->
+<h4 style="color:var(--accent-cyan);margin:2rem 0 1rem;font-size:1.1rem">四種基本斷層類型</h4>
+<div class="fault-cards" id="faultBtns">
+<button class="fault-btn active" data-type="strike-ll">左移走向滑移 λ=0°</button>
+<button class="fault-btn" data-type="strike-rl">右移走向滑移 λ=180°</button>
+<button class="fault-btn" data-type="reverse">逆衝斷層 λ=90°</button>
+<button class="fault-btn" data-type="normal">正斷層 λ=270°</button>
+</div>
+<div class="grid-2">
+<div class="canvas-container"><canvas id="faultTypeCanvas" width="400" height="300"></canvas><div class="canvas-label" id="faultTypeLabel">左移走向滑移斷層：上盤向右水平移動</div></div>
+<div class="figure"><img src="images/fig_4.2-3_fault_types.png" alt="Fig 4.2-3 基本斷層類型"><div class="figure-caption">Fig. 4.2-3：四種基本斷層類型示意圖。</div></div>
+</div>
+</div>
+
+<!-- 4.2.2 First Motions -->
+<div class="subsection">
+<h3 class="subsection-title">4.2.2 初動 First Motions</h3>
+<div class="grid-2">
+<div>
+<p style="color:var(--text-secondary);margin-bottom:1rem">P 波到達不同方位的地震站時，初動方向取決於該站相對於斷層的位置：</p>
+<p style="color:var(--text-secondary);margin-bottom:0.5rem">⬆️ <strong>壓縮 (Compression)</strong>：物質「朝向」測站方向運動</p>
+<p style="color:var(--text-secondary);margin-bottom:1rem">⬇️ <strong>膨脹 (Dilatation)</strong>：物質「遠離」測站方向運動</p>
+<p style="color:var(--text-secondary);margin-bottom:1rem">初動將觀測區域分成<strong>四個象限</strong>，由兩個互相正交的<strong>節面 (Nodal planes)</strong> 分隔。一個是斷層面，另一個是輔助面。</p>
+<div class="warning-box"><h4>關鍵限制</h4><p>僅憑初動極性無法區分哪個節面才是真正的斷層面，需要餘震分布、地質或大地測量資料來判斷。</p></div>
+</div>
+<div class="figure"><img src="images/fig_4.2-4_first_motions.png" alt="Fig 4.2-4 P波初動"><div class="figure-caption">Fig. 4.2-4：P 波初動示意圖。兩個節面將壓縮與膨脹區域分隔開來。</div></div>
+</div>
+</div>
+
+<!-- 4.2.3 Radiation Patterns -->
+<div class="subsection">
+<h3 class="subsection-title">4.2.3 體波輻射花樣 Radiation Patterns</h3>
+<div class="grid-2">
+<div>
+<p style="color:var(--text-secondary);margin-bottom:1rem">斷層滑動產生的輻射花樣等效於<strong>雙力偶 (Double couple)</strong> 力。</p>
+<div class="formula-block"><div class="formula-label">P 波輻射</div><div id="formula-p">u_r = (1/4πρα³) F(t−r/α) sin2θ cosφ</div></div>
+<p style="color:var(--text-secondary);margin-bottom:0.5rem">• P 波：<strong>四瓣花樣</strong>，在節面上振幅為零</p>
+<p style="color:var(--text-secondary);margin-bottom:0.5rem">• S 波：不具節面，向 T 軸收斂、從 P 軸發散</p>
+<p style="color:var(--text-secondary);margin-bottom:1rem">• S 波振幅通常大於 P 波，比值約 α³/β³ ≈ 5</p>
+<div class="formula-block"><div class="formula-label">靜態地震矩</div><div id="formula-m0">M₀ = μD̄S</div></div>
+</div>
+<div class="figure"><img src="images/fig_4.2-6_radiation.png" alt="Fig 4.2-6 輻射花樣"><div class="figure-caption">Fig. 4.2-6：P 波四瓣輻射花樣與 S 波向量輻射花樣。</div></div>
+</div>
+<!-- Interactive radiation pattern -->
+<div class="canvas-container" style="margin-top:1.5rem"><canvas id="radiationCanvas" width="500" height="500"></canvas><div class="canvas-label">P 波輻射花樣互動圖：sin(2θ)cos(φ) — 移動滑鼠探索不同方位的振幅</div></div>
+</div>
+
+<!-- 4.2.4 Beachballs -->
+<div class="subsection">
+<h3 class="subsection-title">4.2.4 震源機制圖（沙灘球）</h3>
+<div class="grid-2">
+<div class="figure"><img src="images/fig_4.2-14_beachballs.png" alt="Fig 4.2-14 沙灘球"><div class="figure-caption">Fig. 4.2-14：不同斷層類型的震源機制圖。壓縮象限以黑色表示。</div></div>
+<div>
+<div class="table-wrapper"><table>
+<tr><th>斷層類型</th><th>沙灘球特徵</th></tr>
+<tr><td>走向滑移斷層</td><td>四象限「棋盤」格，黑白交替</td></tr>
+<tr><td>45°傾角逆衝斷層</td><td>中央區域為壓縮（黑色）</td></tr>
+<tr><td>45°傾角正斷層</td><td>中央區域為膨脹（白色）</td></tr>
+<tr><td>垂直傾滑斷層</td><td>僅可見兩個象限</td></tr>
+</table></div>
+</div>
+</div>
+
+<!-- Interactive beachball -->
+<h4 style="color:var(--accent-cyan);margin:2rem 0 1rem;font-size:1.1rem">🎮 互動式沙灘球 — 調整參數即時預覽</h4>
+<div class="grid-2">
+<div class="card">
+<div class="slider-group"><label>走向角 Strike φ<sub>f</sub> <span id="strikeVal">0°</span></label><input type="range" id="strikeSlider" min="0" max="360" value="0"></div>
+<div class="slider-group"><label>傾斜角 Dip δ <span id="dipVal">45°</span></label><input type="range" id="dipSlider" min="0" max="90" value="45"></div>
+<div class="slider-group"><label>滑動角 Rake λ <span id="rakeVal">90°</span></label><input type="range" id="rakeSlider" min="-180" max="180" value="90"></div>
+<div id="beachballInfo" style="margin-top:1rem;padding:1rem;background:var(--bg-glass);border-radius:var(--radius-sm)">
+<p style="font-size:0.9rem;color:var(--text-secondary)">斷層類型：<strong id="faultLabel" style="color:var(--accent-cyan)">逆衝斷層</strong></p>
+</div>
+</div>
+<div class="canvas-container"><canvas id="beachballCanvas" width="350" height="350"></canvas><div class="canvas-label">互動式震源機制球</div></div>
+</div>
+
+<!-- Slip angle variation -->
+<div class="figure" style="margin-top:2rem"><img src="images/fig_4.2-15_slip_angles.png" alt="Fig 4.2-15 滑動角變化"><div class="figure-caption">Fig. 4.2-15：相同斷層面在不同滑動角下的沙灘球變化（λ=90°→180°→270°）。</div></div>
+
+<!-- P and T axes -->
+<h4 style="color:var(--accent-cyan);margin:2rem 0 1rem;font-size:1.1rem">P 軸與 T 軸</h4>
+<div class="grid-2">
+<div>
+<p style="color:var(--text-secondary);margin-bottom:0.5rem">• <strong>P 軸</strong>（最大壓應力）：平分膨脹象限</p>
+<p style="color:var(--text-secondary);margin-bottom:0.5rem">• <strong>T 軸</strong>（最小壓應力）：平分壓縮象限</p>
+<p style="color:var(--text-secondary);margin-bottom:1rem">• <strong>B 軸</strong>（零軸）：垂直於 P 和 T 軸，為兩節面交線</p>
+<div class="table-wrapper"><table>
+<tr><th>垂直軸</th><th>斷層類型</th></tr>
+<tr><td>P 軸垂直</td><td>正斷層</td></tr>
+<tr><td>T 軸垂直</td><td>逆斷層</td></tr>
+<tr><td>Null 軸垂直</td><td>走向滑移斷層</td></tr>
+</table></div>
+</div>
+<div class="figure"><img src="images/fig_4.2-16_pt_axes.png" alt="Fig 4.2-16 P/T軸"><div class="figure-caption">Fig. 4.2-16：P 軸與 T 軸的幾何關係，以及如何在立體投影網上找到它們。</div></div>
+</div>
+
+<!-- Real earthquakes -->
+<div class="figure" style="margin-top:2rem"><img src="images/fig_4.2-17_real_earthquakes.png" alt="Fig 4.2-17 實際地震"><div class="figure-caption">Fig. 4.2-17：三個實際地震的震源機制圖與波形紀錄。</div></div>
+</div>
+</section>
+
+<!-- SECTION: CASE STUDY -->
+<section class="section" id="case">
+<div class="section-header">
+<div class="section-number">Case Study</div>
+<h2 class="section-title">實際地震案例分析</h2>
+<p class="section-desc">2026年4月20日 M7.4 日本宮古市近海地震</p>
+</div>
+
+<div class="eq-info-grid">
+<div class="eq-info-item"><div class="eq-info-value">M 7.4</div><div class="eq-info-label">規模 Magnitude</div></div>
+<div class="eq-info-item"><div class="eq-info-value">2026/04/20</div><div class="eq-info-label">日期 Date</div></div>
+<div class="eq-info-item"><div class="eq-info-value">98 km</div><div class="eq-info-label">宮古市 ENE</div></div>
+<div class="eq-info-item"><div class="eq-info-value">逆衝斷層</div><div class="eq-info-label">斷層類型 Thrust</div></div>
+</div>
+
+<div class="figure"><img src="images/ENE_of_Miyako.png" alt="宮古市地震分布圖" style="max-height:400px;object-fit:contain;margin:0 auto"><div class="figure-caption">USGS 地震分布圖：2026年4月20日 M7.4 宮古市東北東方 98 公里處地震及周邊地震活動。</div></div>
+
+<div class="subsection" style="margin-top:2rem">
+<h3 class="subsection-title">區域板塊構造</h3>
+<div class="card"><p>震央位於<strong>日本海溝</strong>附近，是<strong>太平洋板塊</strong>與<strong>北美板塊</strong>（鄂霍次克微板塊）的交界處。太平洋板塊以每年約 <strong>83 mm/yr</strong> 的速度向西隱沒至北美板塊下方。此區域過去100年內發生了36次M7以上地震，距離2011年M9.1東北大地震僅192公里。</p></div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">地震成因分析</h3>
+<div class="card"><p>此次地震主要成因是太平洋板塊向北美板塊<strong>隱沒所導致的板塊擠壓與應力釋放</strong>。地震矩張量解顯示東西向的擠壓應力，與此區域預期的應力方向一致，表明滑動發生在板塊介面上。這屬於典型的<strong>隱沒帶大型逆衝區地震 (Megathrust earthquake)</strong>。</p></div>
+</div>
+
+<div class="subsection">
+<h3 class="subsection-title">震源機制球與斷層錯動方向</h3>
+<div class="grid-2">
+<div class="figure"><img src="images/%E9%9C%87%E6%BA%90%E6%A9%9F%E5%88%B6%E7%90%83.jpg" alt="手繪震源機制球"><div class="figure-caption">手繪震源機制球：中央區域為受壓區（陰影），呈現逆衝斷層特徵。</div></div>
+<div class="card">
+<h3>斷層錯動方向解釋</h3>
+<p style="margin-bottom:0.8rem"><strong>1. 斷層類型：</strong>逆衝斷層 (Thrust Fault)，中央壓縮象限與隱沒帶擠壓環境吻合。</p>
+<p style="margin-bottom:0.8rem"><strong>2. 應力方向：</strong>P 軸呈東西向（WNW-ESE），對應太平洋板塊向西隱沒方向。T 軸大致垂直。</p>
+<p><strong>3. 錯動方向：</strong>實際斷層面走向約南北向、向西緩傾斜。上盤（北美板塊）相對於下盤（太平洋板塊）向上並向東逆衝滑移。</p>
+</div>
+</div>
+</div>
+</section>
+
+<!-- SECTION: HF TOOL -->
+<section class="section" id="tool">
+<div class="section-header">
+<div class="section-number">Interactive Tool</div>
+<h2 class="section-title">互動式震源機制球工具</h2>
+<p class="section-desc">使用 Hugging Face 部署的 Moment Tensor 視覺化工具</p>
+</div>
+<div class="card" style="margin-bottom:1.5rem">
+<p style="color:var(--text-secondary)">以下為以 Hugging Face Spaces 部署的互動式震源機制球繪製工具。您可以輸入走向角、傾斜角和滑動角參數，即時生成對應的震源機制球（沙灘球）。</p>
+</div>
+<div class="hf-embed-container">
+<iframe src="https://rrnn0518-moment-tensor.hf.space" title="Moment Tensor Tool" allow="accelerometer; gyroscope" loading="lazy"></iframe>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<p>地震學 Chapter 4 — 地震與震源機制 | 互動式學習網頁</p>
+<p>參考文獻：Shearer, P. M. <em>Introduction to Seismology</em></p>
+<p>地震資料來源：<a href="https://earthquake.usgs.gov/earthquakes/eventpage/us6000sri7/executive" target="_blank">USGS Event us6000sri7</a></p>
+<p>互動工具：<a href="https://huggingface.co/spaces/rrnn0518/moment_tensor" target="_blank">Moment Tensor - Hugging Face Space</a></p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
 
