@@ -153,51 +153,77 @@ document.querySelectorAll('.timeline-item').forEach(item => {
   function drawFault(type){
     ctx.clearRect(0,0,400,300);
     ctx.fillStyle='#111827'; ctx.fillRect(0,0,400,300);
-    const mx=200,my=150;
-    // Ground
-    ctx.fillStyle='#1e293b'; ctx.fillRect(0,100,400,200);
-    // Fault line
-    ctx.strokeStyle='#ef4444'; ctx.lineWidth=3;
-    if(type==='strike-ll'||type==='strike-rl'){
-      ctx.beginPath(); ctx.moveTo(mx,50); ctx.lineTo(mx,250); ctx.stroke();
-      // Arrows
-      ctx.fillStyle='#3b82f6';
-      const dir = type==='strike-ll'?-1:1;
-      drawBlockArrow(ctx,mx-60,my,-dir); drawBlockArrow(ctx,mx+60,my,dir);
-      ctx.fillStyle='#94a3b8'; ctx.font='13px Inter'; ctx.textAlign='center';
-      ctx.fillText(type==='strike-ll'?'Left-lateral':'Right-lateral',mx,270);
-    } else {
-      // Dipping fault
-      ctx.beginPath(); ctx.moveTo(100,80); ctx.lineTo(300,220); ctx.stroke();
-      ctx.fillStyle='#3b82f6';
-      if(type==='reverse'){
-        drawBlockArrow2(ctx,150,100,0,-1); drawBlockArrow2(ctx,280,200,0,1);
-        ctx.fillStyle='#94a3b8'; ctx.font='13px Inter'; ctx.textAlign='center';
-        ctx.fillText('Reverse/Thrust (上盤上移)',mx,270);
+    const mx=200, my=150;
+    
+    // Draw ground block
+    ctx.fillStyle='#1e293b'; 
+    ctx.fillRect(50, 50, 300, 200);
+    
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = '#ef4444';
+    ctx.fillStyle = '#3b82f6';
+    
+    if(type === 'strike-ll' || type === 'strike-rl'){
+      // Top-down view (俯視圖)
+      ctx.beginPath(); ctx.moveTo(mx, 50); ctx.lineTo(mx, 250); ctx.stroke();
+      
+      if (type === 'strike-ll') {
+        drawThickArrow(ctx, mx - 50, my - 20, 0, 40); // Left block moves down
+        drawThickArrow(ctx, mx + 50, my + 20, 0, -40); // Right block moves up
       } else {
-        drawBlockArrow2(ctx,150,100,0,1); drawBlockArrow2(ctx,280,200,0,-1);
+        drawThickArrow(ctx, mx - 50, my + 20, 0, -40); // Left block moves up
+        drawThickArrow(ctx, mx + 50, my - 20, 0, 40); // Right block moves down
+      }
+      
+      ctx.fillStyle='#94a3b8'; ctx.font='13px Inter'; ctx.textAlign='center';
+      ctx.fillText('俯視圖 (Top-down view)', mx, 275);
+    } else {
+      // Cross-section view (剖面圖)
+      // Fault dips 45 degrees to the right
+      ctx.beginPath(); ctx.moveTo(100, 50); ctx.lineTo(300, 250); ctx.stroke();
+      
+      // Right side is Above fault (Hanging wall)
+      // Left side is Below fault (Foot wall)
+      ctx.fillStyle='#94a3b8'; ctx.font='13px Inter'; ctx.textAlign='center';
+      ctx.fillText('下盤 (Foot wall)', 120, 230);
+      ctx.fillText('上盤 (Hanging wall)', 280, 80);
+      
+      ctx.fillStyle='#3b82f6';
+      if(type === 'reverse'){
+        // Reverse: Hanging wall moves UP
+        drawThickArrow(ctx, 230, 160, -40, -40);
+        drawThickArrow(ctx, 170, 140, 40, 40);
+        
         ctx.fillStyle='#94a3b8'; ctx.font='13px Inter'; ctx.textAlign='center';
-        ctx.fillText('Normal (上盤下移)',mx,270);
+        ctx.fillText('剖面圖：上盤向上逆衝', mx, 275);
+      } else {
+        // Normal: Hanging wall moves DOWN
+        drawThickArrow(ctx, 220, 130, 40, 40);
+        drawThickArrow(ctx, 180, 170, -40, -40);
+        
+        ctx.fillStyle='#94a3b8'; ctx.font='13px Inter'; ctx.textAlign='center';
+        ctx.fillText('剖面圖：上盤向下滑動', mx, 275);
       }
     }
-    // Labels
-    ctx.fillStyle='#64748b'; ctx.font='11px Inter'; ctx.textAlign='left';
-    ctx.fillText('Hanging wall',20,130); ctx.fillText('Foot wall',300,130);
   }
 
-  function drawBlockArrow(ctx,x,y,dir){
+  function drawThickArrow(ctx, x1, y1, dx, dy) {
+    const len = Math.hypot(dx, dy);
+    const a = Math.atan2(dy, dx);
+    ctx.save();
+    ctx.translate(x1, y1);
+    ctx.rotate(a);
     ctx.beginPath();
-    ctx.moveTo(x,y-8); ctx.lineTo(x+dir*30,y-8);
-    ctx.lineTo(x+dir*30,y-15); ctx.lineTo(x+dir*45,y);
-    ctx.lineTo(x+dir*30,y+15); ctx.lineTo(x+dir*30,y+8);
-    ctx.lineTo(x,y+8); ctx.closePath(); ctx.fill();
-  }
-  function drawBlockArrow2(ctx,x,y,dx,dy){
-    ctx.beginPath();
-    ctx.moveTo(x-8,y); ctx.lineTo(x-8,y+dy*25);
-    ctx.lineTo(x-15,y+dy*25); ctx.lineTo(x,y+dy*40);
-    ctx.lineTo(x+15,y+dy*25); ctx.lineTo(x+8,y+dy*25);
-    ctx.lineTo(x+8,y); ctx.closePath(); ctx.fill();
+    ctx.moveTo(0, -6);
+    ctx.lineTo(len - 15, -6);
+    ctx.lineTo(len - 15, -12);
+    ctx.lineTo(len, 0);
+    ctx.lineTo(len - 15, 12);
+    ctx.lineTo(len - 15, 6);
+    ctx.lineTo(0, 6);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
   }
 
   btns.forEach(btn=>{
