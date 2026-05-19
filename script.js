@@ -10,7 +10,7 @@ navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => na
 const sections = document.querySelectorAll('.section');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.1 });
+}, { rootMargin: "0px 0px -50px 0px" });
 sections.forEach(s => observer.observe(s));
 
 // ========== SEISMIC WAVE CANVAS (Hero) ==========
@@ -369,4 +369,3 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(fm) katex.render('M_0 = \\mu \\bar{D} S',fm,{displayMode:true});
   }catch(e){}
 });
-
